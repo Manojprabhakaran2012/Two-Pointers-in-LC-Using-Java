@@ -1,0 +1,42 @@
+class Solution {
+    public boolean Search(TreeNode root,int key){
+        if(root==null){
+            return false;
+        }
+
+        else if(root.val==key){
+            return true;
+        }
+
+        boolean left=false,right=false;
+        if(root.val<key){
+            left =Search(root.right,key);
+        }
+
+        else{
+            right=Search(root.left,key);
+        }
+
+        return left || right; 
+
+    }
+
+    public boolean func(TreeNode root, TreeNode curr, int targ){
+        if(curr==null){
+            return false;
+        }
+        
+        if((targ-curr.val)!=curr.val && Search(root,(targ-curr.val))){
+            return true;
+        }
+
+        boolean left=false,right=false;
+        left=func(root,curr.left,targ);
+        right=func(root,curr.right,targ);
+
+        return left || right;
+    }
+    public boolean findTarget(TreeNode root, int k) {
+        return func(root,root,k);
+    }
+}
